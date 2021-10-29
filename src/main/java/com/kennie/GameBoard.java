@@ -13,4 +13,8 @@ public class GameBoard {
     public boolean isCellAlive(int x, int y) {
         return cells.contains(new Cell(x, y));
     }
+
+    public void nextGeneration() {
+        cells.clear();
+    }
 }
