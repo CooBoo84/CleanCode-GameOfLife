@@ -22,4 +22,15 @@ public class GameBoardTest {
         gameBoard.nextGeneration();
         Assert.assertFalse(gameBoard.isCellAlive(0, 0));
     }
+
+    // Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+    @Test
+    public void shouldBeDeadByUnderpopulationWhenLiveCellHasFewerThanTwoAliveNeighbours_oneNeighbour() {
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.addCell(0, 0);
+        gameBoard.addCell(1, 0);
+
+        gameBoard.nextGeneration();
+        Assert.assertFalse(gameBoard.isCellAlive(0, 0));
+    }
 }
