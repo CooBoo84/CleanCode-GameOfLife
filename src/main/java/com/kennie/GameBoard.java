@@ -76,4 +76,42 @@ public class GameBoard {
         }
         return count;
     }
+
+    public boolean hasMoreCell() {
+        return !cells.isEmpty();
+
+    }
+
+    public void print() {
+        int minX, maxX, minY, maxY;
+        minX = minY = 0;
+        maxX = maxY = 3;
+
+        for (Cell c : cells) {
+            if (c.getX() < minX) {
+                minX = c.getX();
+            }
+            if (c.getX() > maxX) {
+                maxX = c.getX();
+            }
+            if (c.getY() < minY) {
+                minY = c.getY();
+            }
+            if (c.getY() > maxY) {
+                maxY = c.getY();
+            }
+        }
+
+        for (int y = minY; y <= maxY; y++) {
+            for (int x = minX; x <= maxX; x++) {
+                if (cells.contains(new Cell(x, y))) {
+                    System.out.print('*');
+                } else {
+                    System.out.print('.');
+                }
+            }
+            System.out.println("...");
+        }
+        System.out.println("----------------------");
+    }
 }
