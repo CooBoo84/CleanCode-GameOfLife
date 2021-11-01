@@ -28,7 +28,23 @@ public class GameBoard {
     }
 
     public void nextGeneration() {
-        Set<Cell> tmpCells = new HashSet<>();
+        Set<Cell> nextGenCells = new HashSet<>();
+        Set<Cell> possibleCells = generateNextGenCells(nextGenCells);
+
+        generateNewCells(nextGenCells, possibleCells);
+        cells = nextGenCells;
+    }
+
+    private void generateNewCells(Set<Cell> tmpCells, Set<Cell> possibleCells) {
+        for (Cell c : possibleCells){
+            int n = countNeighbours(c);
+            if (n == 3){
+                tmpCells.add(c);
+            }
+        }
+    }
+
+    private Set<Cell> generateNextGenCells(Set<Cell> tmpCells) {
         Set<Cell> possibleCells = new HashSet<>();
         for (Cell c : cells){
             int n = countNeighbours(c);
@@ -37,14 +53,7 @@ public class GameBoard {
             }
             possibleCells.addAll(aroundCell(c));
         }
-        
-        for (Cell c : possibleCells){
-            int n = countNeighbours(c);
-            if (n == 3){
-                tmpCells.add(c);
-            }
-        }
-        cells = tmpCells;
+        return possibleCells;
     }
 
     private Set<Cell> aroundCell(Cell cell) {
