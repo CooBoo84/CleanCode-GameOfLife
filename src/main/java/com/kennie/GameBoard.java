@@ -1,5 +1,6 @@
 package com.kennie;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,14 +29,31 @@ public class GameBoard {
 
     public void nextGeneration() {
         Set<Cell> tmpCells = new HashSet<>();
-
+        Set<Cell> possibleCells = new HashSet<>();
         for (Cell c : cells){
             int n = countNeighbours(c);
             if (n == 2 || n == 3) {
                 tmpCells.add(c);
             }
+            possibleCells.addAll(aroundCell(c));
+        }
+        
+        for (Cell c : possibleCells){
+            int n = countNeighbours(c);
+            if (n == 3){
+                tmpCells.add(c);
+            }
         }
         cells = tmpCells;
+    }
+
+    private Set<Cell> aroundCell(Cell cell) {
+        Set<Cell> neighbourCells = new HashSet<>();
+        for (int i = 0; i < neighbours.length; i++) {
+            Cell nc = new Cell(cell.getX() + neighbours[i][0], cell.getY() + neighbours[i][1]);
+            neighbourCells.add(nc);
+        }
+        return neighbourCells;
     }
 
     private int countNeighbours(Cell cell) {
