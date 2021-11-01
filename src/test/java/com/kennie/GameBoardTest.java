@@ -1,13 +1,20 @@
 package com.kennie;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameBoardTest {
 
+    GameBoard gameBoard;
+
+    @Before
+    public void init() {
+        gameBoard = new GameBoard();
+    }
+
     @Test
     public void addCell(){
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0,0);
 
         Assert.assertTrue(gameBoard.isCellAlive(0,0));
@@ -16,7 +23,6 @@ public class GameBoardTest {
     // Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
     @Test
     public void shouldBeDeadByUnderpopulationWhenLiveCellHasFewerThanTwoAliveNeighbours_noNeighbours() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0, 0);
 
         gameBoard.nextGeneration();
@@ -26,7 +32,6 @@ public class GameBoardTest {
     // Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
     @Test
     public void shouldBeDeadByUnderpopulationWhenLiveCellHasFewerThanTwoAliveNeighbours_oneNeighbour() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0, 0);
         gameBoard.addCell(1, 0);
 
@@ -37,7 +42,6 @@ public class GameBoardTest {
     //Rule 2: Any live cell with more than three live neighbours dies, as if by overcrowding.
     @Test
     public void shouldBeDeadByOvercrowdingWhenLiveCellHasMoreThanThreeAliveNeighbours_fourNeighbours() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0, 0);
         gameBoard.addCell(1, 0);
         gameBoard.addCell(1, 1);
@@ -52,7 +56,6 @@ public class GameBoardTest {
     //Rule 3: Any live cell with two or three live neighbours lives on to the next generation.
     @Test
     public void shouldBeLivingOnToNextGenerationWhenHavingTwoOrThreeAliveNeighbours_twoNeighbours() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0, 0);
         gameBoard.addCell(1, 0);
         gameBoard.addCell(1, 1);
@@ -65,7 +68,6 @@ public class GameBoardTest {
     //Rule 3: Any live cell with two or three live neighbours lives on to the next generation.
     @Test
     public void shouldBeLivingOnToNextGenerationWhenHavingTwoOrThreeAliveNeighbours_threeNeighbours() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(0, 0);
         gameBoard.addCell(1, 0);
         gameBoard.addCell(1, 1);
@@ -79,7 +81,6 @@ public class GameBoardTest {
     //Rule 4: Any dead cell with exactly three live neighbors becomes a live cell.
     @Test
     public void shouldBeDeadWhenDeadCellHasExactlyThreeAliveNeighbours() {
-        GameBoard gameBoard = new GameBoard();
         gameBoard.addCell(1, 1);
         gameBoard.addCell(0, 1);
         gameBoard.addCell(1, 0);
