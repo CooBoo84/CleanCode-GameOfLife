@@ -75,4 +75,17 @@ public class GameBoardTest {
 
         Assert.assertTrue(gameBoard.isCellAlive(0, 0));
     }
+
+    //Rule 4: Any dead cell with exactly three live neighbors becomes a live cell.
+    @Test
+    public void shouldBeDeadWhenDeadCellHasExactlyThreeAliveNeighbours() {
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.addCell(1, 1);
+        gameBoard.addCell(0, 1);
+        gameBoard.addCell(1, 0);
+
+        gameBoard.nextGeneration();
+
+        Assert.assertTrue(gameBoard.isCellAlive(0, 0));
+    }
 }
