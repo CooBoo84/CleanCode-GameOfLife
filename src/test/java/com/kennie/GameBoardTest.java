@@ -61,4 +61,18 @@ public class GameBoardTest {
 
         Assert.assertTrue(gameBoard.isCellAlive(0, 0));
     }
+
+    //Rule 3: Any live cell with two or three live neighbours lives on to the next generation.
+    @Test
+    public void shouldBeLivingOnToNextGenerationWhenHavingTwoOrThreeAliveNeighbours_threeNeighbours() {
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.addCell(0, 0);
+        gameBoard.addCell(1, 0);
+        gameBoard.addCell(1, 1);
+        gameBoard.addCell(0, 1);
+
+        gameBoard.nextGeneration();
+
+        Assert.assertTrue(gameBoard.isCellAlive(0, 0));
+    }
 }
