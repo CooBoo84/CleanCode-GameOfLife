@@ -15,6 +15,8 @@ public class GameBoard {
     }
 
     public void nextGeneration() {
+        if(cells.size() <= 2) {
         cells.clear();
+        }
     }
 }
