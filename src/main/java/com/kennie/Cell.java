@@ -2,21 +2,21 @@ package com.kennie;
 
 public class Cell {
 
-    private int x;
-    private int y;
+    private int xAxis;
+    private int yAxis;
 
-    public Cell(int x, int y) {
+    public Cell(int xAxis, int yAxis) {
 
-        this.x = x;
-        this.y = y;
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
     }
 
-    public int getX() {
-        return x;
+    public int getxAxis() {
+        return xAxis;
     }
 
-    public int getY() {
-        return y;
+    public int getyAxis() {
+        return yAxis;
     }
 
     @Override
@@ -26,22 +26,22 @@ public class Cell {
 
         Cell cell = (Cell) o;
 
-        if (x != cell.x) return false;
-        return y == cell.y;
+        if (xAxis != cell.xAxis) return false;
+        return yAxis == cell.yAxis;
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = xAxis;
+        result = 31 * result + yAxis;
         return result;
     }
 
     @Override
     public String toString() {
         return "Cell{" +
-                "x=" + x +
-                ", y=" + y +
+                "xAxis=" + xAxis +
+                ", yAxis=" + yAxis +
                 '}';
     }
 }

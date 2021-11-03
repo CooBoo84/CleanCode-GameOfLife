@@ -1,6 +1,5 @@
 package com.kennie;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,12 +18,12 @@ public class GameBoard {
             {1, 1},
     };
 
-    public void addCell(int x, int y) {
-        this.cells.add(new Cell(x, y));
+    public void addCell(int xAxis, int yAxis) {
+        this.cells.add(new Cell(xAxis, yAxis));
     }
 
-    public boolean isCellAlive(int x, int y) {
-        return cells.contains(new Cell(x, y));
+    public boolean isCellAlive(int xAxis, int yAxis) {
+        return cells.contains(new Cell(xAxis, yAxis));
     }
 
     public void nextGeneration() {
@@ -35,23 +34,23 @@ public class GameBoard {
         cells = nextGenCells;
     }
 
-    private void generateNewCells(Set<Cell> tmpCells, Set<Cell> possibleCells) {
-        for (Cell c : possibleCells){
-            int n = countNeighbours(c);
-            if (n == 3){
-                tmpCells.add(c);
+    private void generateNewCells(Set<Cell> nextGenCells, Set<Cell> possibleCells) {
+        for (Cell cell : possibleCells){
+            int numberOfCells = countNeighbours(cell);
+            if (numberOfCells == 3){
+                nextGenCells.add(cell);
             }
         }
     }
 
-    private Set<Cell> generateNextGenCells(Set<Cell> tmpCells) {
+    private Set<Cell> generateNextGenCells(Set<Cell> nextGenCells) {
         Set<Cell> possibleCells = new HashSet<>();
-        for (Cell c : cells){
-            int n = countNeighbours(c);
-            if (n == 2 || n == 3) {
-                tmpCells.add(c);
+        for (Cell cell : cells){
+            int numberOfCells = countNeighbours(cell);
+            if (numberOfCells == 2 || numberOfCells == 3) {
+                nextGenCells.add(cell);
             }
-            possibleCells.addAll(aroundCell(c));
+            possibleCells.addAll(aroundCell(cell));
         }
         return possibleCells;
     }
@@ -59,8 +58,8 @@ public class GameBoard {
     private Set<Cell> aroundCell(Cell cell) {
         Set<Cell> neighbourCells = new HashSet<>();
         for (int i = 0; i < neighbours.length; i++) {
-            Cell nc = new Cell(cell.getX() + neighbours[i][0], cell.getY() + neighbours[i][1]);
-            neighbourCells.add(nc);
+            Cell nextCell = new Cell(cell.getxAxis() + neighbours[i][0], cell.getyAxis() + neighbours[i][1]);
+            neighbourCells.add(nextCell);
         }
         return neighbourCells;
     }
@@ -69,8 +68,8 @@ public class GameBoard {
         int count = 0;
 
         for (int i = 0; i < neighbours.length; i++) {
-            Cell nc = new Cell(cell.getX() + neighbours[i][0], cell.getY() + neighbours[i][1]);
-            if (cells.contains(nc)) {
+            Cell nextCell = new Cell(cell.getxAxis() + neighbours[i][0], cell.getyAxis() + neighbours[i][1]);
+            if (cells.contains(nextCell)) {
                 count++;
             }
         }
@@ -79,7 +78,6 @@ public class GameBoard {
 
     public boolean hasMoreCell() {
         return !cells.isEmpty();
-
     }
 
     public void print() {
@@ -88,17 +86,17 @@ public class GameBoard {
         maxX = maxY = 3;
 
         for (Cell c : cells) {
-            if (c.getX() < minX) {
-                minX = c.getX();
+            if (c.getxAxis() < minX) {
+                minX = c.getxAxis();
             }
-            if (c.getX() > maxX) {
-                maxX = c.getX();
+            if (c.getxAxis() > maxX) {
+                maxX = c.getxAxis();
             }
-            if (c.getY() < minY) {
-                minY = c.getY();
+            if (c.getyAxis() < minY) {
+                minY = c.getyAxis();
             }
-            if (c.getY() > maxY) {
-                maxY = c.getY();
+            if (c.getyAxis() > maxY) {
+                maxY = c.getyAxis();
             }
         }
 
